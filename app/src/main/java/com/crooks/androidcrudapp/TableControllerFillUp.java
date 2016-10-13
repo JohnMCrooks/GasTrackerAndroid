@@ -101,4 +101,20 @@ public class TableControllerFillUp extends DbHandler{
         return fillUp;
     }
 
+    public boolean updateRecord(FillUp updatedFill){
+        ContentValues values = new ContentValues();
+        values.put("gallonspumped", updatedFill.gallonsPumped);
+        values.put("costpergallon", updatedFill.costPerGallon);
+        values.put("totalcost", updatedFill.totalCost);
+
+        String where = "id = ?";
+        String[] whereArgs = {Integer.toString(updatedFill.getId())};
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        boolean updateSuccessful = db.update("fillups", values, where, whereArgs) > 0;
+        db.close();
+
+        return updateSuccessful;
+    }
+
 }

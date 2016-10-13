@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by johncrooks on 10/13/16.
@@ -22,16 +23,15 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
         id = v.getTag().toString();
         final CharSequence[] items = { "Edit", "Delete" };
 
-        new AlertDialog.Builder(context).setTitle("Trip Number " + id)
+        new AlertDialog.Builder(context).setTitle("Fill Up Number " + id)
                 .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         if(item == 0){
                             editRecord(Integer.parseInt(id));
+                        } else if (item ==1){
+                            //deleteRecord(Integer.parseInt(id));
                         }
-
-
                         dialog.dismiss();
-
                     }
                 }).show();
 
@@ -40,13 +40,15 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
 
     public void editRecord(final int id){
         final TableControllerFillUp tableControllerFillUp = new TableControllerFillUp(context);
-        FillUp fillUp = tableControllerFillUp.readSingle(id);
+        final FillUp fillUp = tableControllerFillUp.readSingle(id);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.gas_input_form, null, false);
         final EditText editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
         final EditText editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
+        final EditText editDate = (EditText) formElementsView.findViewById(R.id.editDate);
 
+        editDate.setText(String.valueOf(fillUp.date));
         editCostPerGallon.setText(String.valueOf(fillUp.costPerGallon));
         editGallonsPumped.setText(String.valueOf(fillUp.gallonsPumped));
 
@@ -56,6 +58,24 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
                 .setPositiveButton("Save Changes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                String date = editDate.getText().toString();
+                                double costPerGallon = Double.valueOf(editCostPerGallon.getText().toString());
+                                double gallonsPumped = Double.valueOf(editGallonsPumped.getText().toString());
+                                double totalCost = costPerGallon * gallonsPumped;
+
+                                FillUp fillUp1 = new FillUp(date, costPerGallon,gallonsPumped,totalCost);
+                                fillUp1.setId(fillUp.getId());
+
+                                boolean updateSuccessful = tableControllerFillUp.updateRecord(fillUp1);
+
+                                if(updateSuccessful){
+                                    Toast.makeText(context, "Gas record was updated.", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(context, "Unable to update Gas record.", Toast.LENGTH_SHORT).show();
+                                }
+
+                                ((MainActivity) context).countRecords();
+                                ((MainActivity) context).readRecords();
 
 
                                 dialog.cancel();

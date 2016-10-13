@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         countRecords();
         readRecords();
 
+
     }
 
     public void countRecords(){
