@@ -1,5 +1,6 @@
 package com.crooks.androidcrudapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     @Override
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Button buttonCharts = (Button) findViewById(R.id.buttonCharts);
 
         buttonAddFillUp.setOnClickListener(new OnClickListenerAddFillUp());
-        buttonCharts.setOnClickListener();
+        buttonCharts.setOnClickListener(this);
 
         countRecords();
         readRecords();
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void readRecords(){
         LinearLayout linearLayoutRecords = (LinearLayout) findViewById(R.id.linearLayoutRecords);
-        linearLayoutRecords.removeAllViews();;
+        linearLayoutRecords.removeAllViews();
 
         List<FillUp> fillUpList = new TableControllerFillUp(this).read();
         if (fillUpList.size()>0){
@@ -67,5 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
             linearLayoutRecords.addView(locationItem);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent chartIntent = new Intent(MainActivity.this, ChartActivity.class);
+        startActivity(chartIntent);
+
     }
 }
