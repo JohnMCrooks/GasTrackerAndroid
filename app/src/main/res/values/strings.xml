@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AndroidCrudApp</string>
+    <string name="date">Date</string>
+    <string name="cost_per_gallon">Cost Per Gallon</string>
+    <string name="gallons_pumped">Gallons pumped</string>
+    <string name="total_cost">Total Cost</string>
+    <string name="_0_records_found">0 records found</string>
+    <string name="add_fill_up">Add Fill Up</string>
+</resources>
