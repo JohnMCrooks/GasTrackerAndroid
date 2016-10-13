@@ -77,4 +77,28 @@ public class TableControllerFillUp extends DbHandler{
         return recordsList;
     }
 
+    public FillUp readSingle(int id){
+        FillUp fillUp = null;
+        String sql = "SELECT * FROM fillups WHERE id = " + id;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()){
+            int oldId = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")));
+            String oldDate = cursor.getString(cursor.getColumnIndex("date"));
+            double costPerGallon = Double.parseDouble(cursor.getString(cursor.getColumnIndex("costpergallon")));
+            double gallonsPumped = Double.parseDouble(cursor.getString(cursor.getColumnIndex("gallonspumped")));
+            double totalCost = Double.parseDouble(cursor.getString(cursor.getColumnIndex("totalcost")));
+
+            fillUp = new FillUp(oldDate,costPerGallon,gallonsPumped,totalCost);
+            fillUp.id = oldId;
+        }
+
+        cursor.close();
+        db.close();
+
+        return fillUp;
+    }
+
 }
