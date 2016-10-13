@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         countRecords();
         readRecords();
 
-
     }
 
     public void countRecords(){
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 textViewFillItem.setPadding(0,10,0,10);
                 textViewFillItem.setText(textViewContents);
                 textViewFillItem.setTag(Integer.toString(id));
+                textViewFillItem.setOnLongClickListener(new OnLongClickListenerFillUp());
 
                 linearLayoutRecords.addView(textViewFillItem);
             }
