@@ -54,11 +54,10 @@ public class OnClickListenerAddFillUp implements View.OnClickListener {
                                 Toast.makeText(context, "Unable to save new data.", Toast.LENGTH_SHORT).show();
                             }
                         }
-
+                        ((MainActivity) context).countRecords();
+                        ((MainActivity) context).readRecords();
                         dialog.cancel();
                     }
-
                 }).show();
-
     }
 }

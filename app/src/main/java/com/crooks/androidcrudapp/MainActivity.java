@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button buttonAddFillUp = (Button) findViewById(R.id.buttonAddFillUp);
+        Button buttonCharts = (Button) findViewById(R.id.buttonCharts);
+
         buttonAddFillUp.setOnClickListener(new OnClickListenerAddFillUp());
+        buttonCharts.setOnClickListener();
 
         countRecords();
         readRecords();
-
 
     }
 

@@ -18,6 +18,15 @@
         android:layout_alignParentTop="true"
         android:text="@string/add_fill_up" />
 
+    <Button
+        android:id="@+id/buttonCharts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/charts"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:id="@+id/textViewRecordCount"
         android:gravity="center"
@@ -41,5 +50,7 @@
 
         </LinearLayout>
     </ScrollView>
+
+
 
 </RelativeLayout>

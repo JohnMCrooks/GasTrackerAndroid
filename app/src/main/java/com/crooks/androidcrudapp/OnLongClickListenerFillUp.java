@@ -29,7 +29,16 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
                         if(item == 0){
                             editRecord(Integer.parseInt(id));
                         } else if (item ==1){
-                            //deleteRecord(Integer.parseInt(id));
+                            boolean deleteSuccessful = new TableControllerFillUp(context).delete(Integer.parseInt(id));
+
+                            if (deleteSuccessful){
+                                Toast.makeText(context, "Student record was deleted.", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "Unable to delete student record.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            ((MainActivity) context).countRecords();
+                            ((MainActivity) context).readRecords();
                         }
                         dialog.dismiss();
                     }
