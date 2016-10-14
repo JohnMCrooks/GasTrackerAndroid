@@ -39,6 +39,8 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     public void createTotalCostTable(){
         BarChart chart = (BarChart) findViewById(R.id.chart);
         chart.setDescription("Testing this Description, Yo");
+        chart.setNoDataTextDescription("No data to analyze yet!");
+        chart.setNoDataText("No data to analyze yet");
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         List<FillUp> fillUpList = new TableControllerFillUp(this).read();
@@ -55,6 +57,7 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         BarData lineData = new BarData(dataset);
         lineData.setValueTextSize(12);
         chart.setData(lineData);
+
 
         chart.invalidate();
     }

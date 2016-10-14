@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 double costPerGallon = fill.costPerGallon;
                 double totalCost = fill.totalCost;
 
-                String textViewContents =  date + " Gallons: " + gallonsPumped + " Cost: " + costPerGallon + " $/g  Total: " + totalCost;
+                String textViewContents =  date + " \nGallons: " + gallonsPumped + " Cost: " + costPerGallon + " $/g  Total: " + totalCost;
 
                 TextView textViewFillItem = new TextView(this);
                 textViewFillItem.setPadding(0,10,0,10);
@@ -84,21 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = null;
         switch(v.getId()){
             case R.id.buttonStartFresh:
-                boolean deleteSuccessful = new TableControllerFillUp(this).deleteAll();
-
-                if (deleteSuccessful){
-                    Toast.makeText(this, "Gas record was deleted.", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(this, "Unable to delete gas record.", Toast.LENGTH_SHORT).show();
-                }
-                countRecords();
-                readRecords();
+                deleteAllDialogue(v);
                 break;
 
             case R.id.buttonCharts:
-                intent = new Intent(MainActivity.this, ChartActivity.class);
-                countRecords();
-                readRecords();
+                if (new TableControllerFillUp(this).read().size() > 0   ) {
+                    intent = new Intent(MainActivity.this, ChartActivity.class);
+                }else {
+                    Toast.makeText(this, "No Data, Therefore No Chart", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.buttonAddFillUp:
@@ -120,7 +114,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final String id = v.getTag().toString();
         final CharSequence[] items = { "Edit", "Delete" };
 
-        new AlertDialog.Builder(context).setTitle("Fill Up Number " + id)
+        new AlertDialog.Builder(context)
+                .setTitle("Fill Up Number " + id)
                 .setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int item) {
                         if(item == 0){
@@ -232,6 +227,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                         dialog.cancel();
+                    }
+                }).show();
+    }
+
+    public void deleteAllDialogue(View v){
+        final Context context = v.getContext();
+        CharSequence[] items = { "Yes", "No" };
+        new AlertDialog.Builder(context)
+                .setTitle("Delete Everything?")
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int item) {
+                        if(item == 0){
+                            boolean deleteSuccessful = new TableControllerFillUp(context).deleteAll();
+                            if (deleteSuccessful){
+                                Toast.makeText(context, "Gas records were deleted.", Toast.LENGTH_SHORT).show();
+                                countRecords();
+                                readRecords();
+                            }else{
+                                Toast.makeText(context, "Something went wrong, unable to delete the records.", Toast.LENGTH_SHORT).show();
+                            }
+                        } else{
+                        }
+                        dialog.dismiss();
                     }
                 }).show();
     }

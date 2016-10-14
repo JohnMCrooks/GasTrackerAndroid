@@ -132,9 +132,9 @@ public class TableControllerFillUp extends DbHandler{
         boolean deleteSuccessful = false;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT * FROM fillups ORDER BY id";
+        String sql = "DELETE FROM fillups";
 
-        deleteSuccessful =  db.rawQuery(sql,null).getCount() >0;
+        deleteSuccessful =  db.rawQuery(sql,null).getCount() < 1;
         db.close();
 
         return deleteSuccessful;
