@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button buttonCharts = (Button) findViewById(R.id.buttonCharts);
         Button buttonStartFresh = (Button) findViewById(R.id.buttonStartFresh);
 
+
         buttonAddFillUp.setOnClickListener(this);
         buttonCharts.setOnClickListener(this);
         buttonStartFresh.setOnClickListener(this);
@@ -43,8 +44,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void countRecords(){
         int recordCount = new TableControllerFillUp(this).count();
-        TextView textViewRecordCount = (TextView) findViewById(R.id.textViewRecordCount);
-        textViewRecordCount.setText(recordCount + " records found.");
+        if (recordCount > 0){
+            TextView textViewRecordCount = (TextView) findViewById(R.id.textViewRecordCount);
+            textViewRecordCount.setText(recordCount + " records found.");
+
+
+        } else {
+            TextView textViewRecordCount = (TextView) findViewById(R.id.textViewRecordCount);
+            textViewRecordCount.setText("");
+        }
     }
 
     public void readRecords(){
@@ -68,6 +76,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 textViewFillItem.setTag(Integer.toString(id));
                 textViewFillItem.setOnLongClickListener(this);
 
+                TextView textSumTotal = (TextView) findViewById(R.id.textSumTotal);
+                textSumTotal.setText("$" + new TableControllerFillUp(this).sumTotal());
+
+                TextView textAverageCost = (TextView) findViewById(R.id.textAverageCost);
+                textAverageCost.setText("$" + new TableControllerFillUp(this).averageCost());
+
+                TextView textAvgCostPerGallon = (TextView) findViewById(R.id.costPerGallon);
+                textAvgCostPerGallon.setText("$" + new TableControllerFillUp(this).averageCostPerGallon());
+
                 linearLayoutRecords.addView(textViewFillItem);
             }
         } else {
@@ -88,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.buttonCharts:
-                if (new TableControllerFillUp(this).read().size() > 0   ) {
+                if (new TableControllerFillUp(this).read().size() >= 1   ) {
                     intent = new Intent(MainActivity.this, ChartActivity.class);
                 }else {
                     Toast.makeText(this, "No Data, Therefore No Chart", Toast.LENGTH_SHORT).show();
@@ -109,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public boolean onLongClick(View v) {
+    public boolean onLongClick(final View v) {
         final Context context = v.getContext();
         final String id = v.getTag().toString();
         final CharSequence[] items = { "Edit", "Delete" };
@@ -127,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             if (deleteSuccessful){
                                 Toast.makeText(context, "Gas record was deleted.", Toast.LENGTH_SHORT).show();
+                                updateStats(v);
+
                             }else{
                                 Toast.makeText(context, "Unable to delete gas record.", Toast.LENGTH_SHORT).show();
                             }
@@ -173,12 +192,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 if(updateSuccessful){
                                     Toast.makeText(context, "Gas record was updated.", Toast.LENGTH_SHORT).show();
+
                                 }else{
                                     Toast.makeText(context, "Unable to update gas record.", Toast.LENGTH_SHORT).show();
                                 }
 
-                                ((MainActivity) context).countRecords();
-                                ((MainActivity) context).readRecords();
+                                countRecords();
+                                readRecords();
 
 
                                 dialog.cancel();
@@ -231,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }).show();
     }
 
-    public void deleteAllDialogue(View v){
+    public void deleteAllDialogue(final View v){
         final Context context = v.getContext();
         CharSequence[] items = { "Yes", "No" };
         new AlertDialog.Builder(context)
@@ -244,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(context, "Gas records were deleted.", Toast.LENGTH_SHORT).show();
                                 countRecords();
                                 readRecords();
+                                updateStats(v);
                             }else{
                                 Toast.makeText(context, "Something went wrong, unable to delete the records.", Toast.LENGTH_SHORT).show();
                             }
@@ -252,5 +273,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         dialog.dismiss();
                     }
                 }).show();
+    }
+
+    public void updateStats(View v){
+        Context context = v.getContext();
+
+        TextView textSumTotal = (TextView) findViewById(R.id.textSumTotal);
+        textSumTotal.setText("$" + new TableControllerFillUp(context).sumTotal());
+
+        TextView textAverageCost = (TextView) findViewById(R.id.textAverageCost);
+        textAverageCost.setText("$" + new TableControllerFillUp(context).averageCost());
+
+        TextView textAvgCostPerGallon = (TextView) findViewById(R.id.costPerGallon);
+        textAvgCostPerGallon.setText("$" + new TableControllerFillUp(this).averageCostPerGallon());
     }
 }

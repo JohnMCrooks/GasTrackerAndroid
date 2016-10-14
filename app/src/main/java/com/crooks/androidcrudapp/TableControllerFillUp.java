@@ -41,6 +41,43 @@ public class TableControllerFillUp extends DbHandler{
         return recordCount;
     }
 
+    public float sumTotal() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        float total = 0;
+        Cursor cursor = db.rawQuery("Select sum(totalcost) from fillups", null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getFloat(0);
+        }
+        db.close();
+
+        return total;
+    }
+
+    public float averageCost(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        float average = 0;
+        Cursor cursor =  db.rawQuery("Select avg(totalcost) from fillups", null);
+        if(cursor.moveToFirst()){
+            average = cursor.getFloat(0);
+        }
+        db.close();
+
+        return average;
+    }
+
+    public float averageCostPerGallon(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        float average = 0;
+        Cursor cursor =  db.rawQuery("Select avg(costpergallon) from fillups", null);
+        if(cursor.moveToFirst()){
+            average = cursor.getFloat(0);
+        }
+        db.close();
+
+        return average;
+
+    }
+
     public List<FillUp> read() {
 
         List<FillUp> recordsList = new ArrayList<FillUp>();
