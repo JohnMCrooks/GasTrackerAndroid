@@ -17,12 +17,15 @@ import java.util.Date;
  */
 
 public class OnClickListenerAddFillUp implements View.OnClickListener {
+    Context context;
+    EditText editCostPerGallon;
+    EditText editGallonsPumped;
 
     @Override
     public void onClick(View v) {
-        final Context context = v.getContext();
+        context = v.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View formElementsView = inflater.inflate(R.layout.gas_input_form,null, false);
+        View formElementsView = inflater.inflate(R.layout.gas_input_form,null, false);
 
         Calendar cal = Calendar.getInstance();
         final Date date = cal.getTime();
@@ -30,8 +33,8 @@ public class OnClickListenerAddFillUp implements View.OnClickListener {
         editDate.setText((CharSequence) date.toString());
 
 
-        final EditText editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
-        final EditText editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
+        editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
+        editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
 
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
@@ -49,6 +52,7 @@ public class OnClickListenerAddFillUp implements View.OnClickListener {
 
                             if(createSuccessful){
                                 Toast.makeText(context, "New data was saved.", Toast.LENGTH_SHORT).show();
+                                ((MainActivity) context).countRecords();
 
                             }else{
                                 Toast.makeText(context, "Unable to save new data.", Toast.LENGTH_SHORT).show();

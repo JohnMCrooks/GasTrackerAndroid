@@ -7,4 +7,6 @@
     <string name="_0_records_found">0 records found</string>
     <string name="add_fill_up">Add Fill Up</string>
     <string name="charts">Charts</string>
+    <string name="app_title">Gas Tracker</string>
+    <string name="data_vis">Data Visualization</string>
 </resources>

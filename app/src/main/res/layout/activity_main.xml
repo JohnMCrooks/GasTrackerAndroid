@@ -51,6 +51,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/buttonStartFresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Fresh"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/buttonCharts"
+        android:layout_toStartOf="@+id/buttonCharts"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp" />
 
 
 </RelativeLayout>

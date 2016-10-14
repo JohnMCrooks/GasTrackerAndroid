@@ -28,13 +28,15 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
                     public void onClick(DialogInterface dialog, int item) {
                         if(item == 0){
                             editRecord(Integer.parseInt(id));
+                            ((MainActivity) context).countRecords();
+                            ((MainActivity) context).readRecords();
                         } else if (item ==1){
-                            boolean deleteSuccessful = new TableControllerFillUp(context).delete(Integer.parseInt(id));
+                            boolean deleteSuccessful = new TableControllerFillUp(context).deleteSingle(Integer.parseInt(id));
 
                             if (deleteSuccessful){
-                                Toast.makeText(context, "Student record was deleted.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Gas record was deleted.", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(context, "Unable to delete student record.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Unable to delete gas record.", Toast.LENGTH_SHORT).show();
                             }
 
                             ((MainActivity) context).countRecords();
@@ -80,7 +82,7 @@ public class OnLongClickListenerFillUp implements View.OnLongClickListener {
                                 if(updateSuccessful){
                                     Toast.makeText(context, "Gas record was updated.", Toast.LENGTH_SHORT).show();
                                 }else{
-                                    Toast.makeText(context, "Unable to update Gas record.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Unable to update gas record.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 ((MainActivity) context).countRecords();
