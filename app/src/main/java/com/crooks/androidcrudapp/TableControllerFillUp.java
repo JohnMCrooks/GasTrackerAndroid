@@ -45,7 +45,7 @@ public class TableControllerFillUp extends DbHandler{
 
         List<FillUp> recordsList = new ArrayList<FillUp>();
 
-        String sql = "SELECT * FROM fillups ORDER BY id DESC";
+        String sql = "SELECT * FROM fillups ORDER BY id";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
@@ -116,6 +116,7 @@ public class TableControllerFillUp extends DbHandler{
 
         return updateSuccessful;
     }
+
     public boolean delete(int id) {
         boolean deleteSuccessful = false;
 
