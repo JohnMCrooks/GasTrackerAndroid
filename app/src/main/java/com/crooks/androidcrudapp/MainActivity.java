@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 textViewFillItem.setPadding(0,10,0,10);
                 textViewFillItem.setText(textViewContents);
                 textViewFillItem.setTag(Integer.toString(id));
-                textViewFillItem.setOnLongClickListener(new OnLongClickListenerFillUp());
+                textViewFillItem.setOnLongClickListener(this);
 
                 linearLayoutRecords.addView(textViewFillItem);
             }
@@ -99,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MainActivity.this, ChartActivity.class);
                 countRecords();
                 readRecords();
+                break;
+
+            case R.id.buttonAddFillUp:
+                addRecordDialogue(v);
                 break;
 
             default:
@@ -186,5 +190,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                         }).show();
+
+
+    }
+
+    public void addRecordDialogue(View v){
+        final Context context = v.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View formElementsView = inflater.inflate(R.layout.gas_input_form,null, false);
+
+        Calendar cal = Calendar.getInstance();
+        final Date date = cal.getTime();
+        final EditText editDate = (EditText) formElementsView.findViewById(R.id.editDate);
+        editDate.setText((CharSequence) date.toString());
+
+
+        final EditText editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
+        final EditText editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
+
+        new AlertDialog.Builder(context)
+                .setView(formElementsView)
+                .setTitle("Add Fill Up")
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if( editCostPerGallon !=null && editGallonsPumped !=null){
+                            double costPerGallon = Double.valueOf(editCostPerGallon.getText().toString());
+                            double gallonsPumped = Double.valueOf(editGallonsPumped.getText().toString());
+                            double totalCost = costPerGallon * gallonsPumped;
+
+                            FillUp newTank = new FillUp(date.toString(), costPerGallon,gallonsPumped,totalCost);
+                            boolean createSuccessful = new TableControllerFillUp(context).create(newTank);
+
+                            if(createSuccessful){
+                                Toast.makeText(context, "New data was saved.", Toast.LENGTH_SHORT).show();
+                                countRecords();
+                                readRecords();
+
+                            }else{
+                                Toast.makeText(context, "Unable to save new data.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        dialog.cancel();
+                    }
+                }).show();
     }
 }
