@@ -22,9 +22,7 @@ public class ChartActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-
         createTotalCostTable();
-
     }
 
     public void createTotalCostTable(){
@@ -32,22 +30,29 @@ public class ChartActivity extends AppCompatActivity  {
         chart.setDescription("Testing this Shit");
 
         ArrayList<Entry> entries = new ArrayList<>();
-            entries.add(new Entry(4, 0));
-            entries.add(new Entry(8, 1));
-            entries.add(new Entry(6, 2));
-            entries.add(new Entry(2, 3));
-            entries.add(new Entry(18, 9));
+        //TODO: This list is super fickle - Must maintain order for it to display properly.
+        // Find way to sort without streams before adding all the entries
+            entries.add(new Entry(1, 2));
+            entries.add(new Entry(2, 4));
+            entries.add(new Entry(3, 9));
+            entries.add(new Entry(4, 12));
+            entries.add(new Entry(5, 4));
 
-        //Confirming the entries are being added the way I they should be
+//        Confirming the entries are being added the way they should be
         for (Entry entry : entries){
             System.out.println("X: " + entry.getX() + " Y: " + entry.getY());
         }
 
-        LineDataSet dataset = new LineDataSet(entries, "Y-Data");
+        List<FillUp> fillUpList = new TableControllerFillUp(this).read();
 
+//        for(FillUp fill: fillUpList){
+//            entries.add(new Entry(fill.getId(), (float) fill.getTotalCost()));
+//            System.out.println("ID: " + fill.getId() + "  Total: " + fill.getTotalCost());
+//        }
+
+        LineDataSet dataset = new LineDataSet(entries, "Label");
         LineData lineData = new LineData(dataset);
         chart.setData(lineData);
         chart.invalidate();
     }
-
 }
