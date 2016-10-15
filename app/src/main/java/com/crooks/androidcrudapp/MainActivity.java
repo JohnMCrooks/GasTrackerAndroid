@@ -14,8 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.Chart;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void countRecords(){
-        int recordCount = new TableControllerFillUp(this).count();
+        int recordCount = new TableControllerFillUp(this).recordCount();
         if (recordCount > 0){
             TextView textViewRecordCount = (TextView) findViewById(R.id.textViewRecordCount);
             textViewRecordCount.setText(recordCount + " records found.");
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayout linearLayoutRecords = (LinearLayout) findViewById(R.id.linearLayoutRecords);
         linearLayoutRecords.removeAllViews();
 
-        List<FillUp> fillUpList = new TableControllerFillUp(this).read();
+        List<FillUp> fillUpList = new TableControllerFillUp(this).returnAllRecords();
         if (fillUpList.size()>0){
             for(FillUp fill : fillUpList){
                 int id = fill.id;
@@ -80,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 textSumTotal.setText("$" + new TableControllerFillUp(this).sumTotal());
 
                 TextView textAverageCost = (TextView) findViewById(R.id.textAverageCost);
-                textAverageCost.setText("$" + new TableControllerFillUp(this).averageCost());
+                textAverageCost.setText("$" + new TableControllerFillUp(this).averageTotalCost());
 
                 TextView textAvgCostPerGallon = (TextView) findViewById(R.id.costPerGallon);
                 textAvgCostPerGallon.setText("$" + new TableControllerFillUp(this).averageCostPerGallon());
@@ -105,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.buttonCharts:
-                if (new TableControllerFillUp(this).read().size() >= 1   ) {
+                if (new TableControllerFillUp(this).returnAllRecords().size() >= 1   ) {
                     intent = new Intent(MainActivity.this, ChartActivity.class);
                 }else {
                     Toast.makeText(this, "No Data, Therefore No Chart", Toast.LENGTH_SHORT).show();
@@ -235,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             double totalCost = costPerGallon * gallonsPumped;
 
                             FillUp newTank = new FillUp(date.toString(), costPerGallon,gallonsPumped,totalCost);
-                            boolean createSuccessful = new TableControllerFillUp(context).create(newTank);
+                            boolean createSuccessful = new TableControllerFillUp(context).createRecord(newTank);
 
                             if(createSuccessful){
                                 Toast.makeText(context, "New data was saved.", Toast.LENGTH_SHORT).show();
@@ -282,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textSumTotal.setText("$" + new TableControllerFillUp(context).sumTotal());
 
         TextView textAverageCost = (TextView) findViewById(R.id.textAverageCost);
-        textAverageCost.setText("$" + new TableControllerFillUp(context).averageCost());
+        textAverageCost.setText("$" + new TableControllerFillUp(context).averageTotalCost());
 
         TextView textAvgCostPerGallon = (TextView) findViewById(R.id.costPerGallon);
         textAvgCostPerGallon.setText("$" + new TableControllerFillUp(this).averageCostPerGallon());

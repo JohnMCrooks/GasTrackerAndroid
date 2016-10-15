@@ -13,11 +13,12 @@ import java.util.List;
  */
 
 public class TableControllerFillUp extends DbHandler{
+
     public TableControllerFillUp(Context context){
         super(context);
     }
 
-    public boolean create(FillUp fillUp){
+    public boolean createRecord(FillUp fillUp){
         ContentValues values = new ContentValues();
         values.put("date", String.valueOf(fillUp.date));
         values.put("costpergallon", fillUp.costPerGallon);
@@ -32,7 +33,7 @@ public class TableControllerFillUp extends DbHandler{
         return createSuccesful;
     }
 
-    public int count(){
+    public int recordCount(){
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "SELECT * FROM fillups";
         int recordCount = db.rawQuery(sql, null).getCount();
@@ -53,7 +54,7 @@ public class TableControllerFillUp extends DbHandler{
         return total;
     }
 
-    public float averageCost(){
+    public float averageTotalCost(){
         SQLiteDatabase db = this.getWritableDatabase();
         float average = 0;
         Cursor cursor =  db.rawQuery("Select avg(totalcost) from fillups", null);
@@ -78,7 +79,7 @@ public class TableControllerFillUp extends DbHandler{
 
     }
 
-    public List<FillUp> read() {
+    public List<FillUp> returnAllRecords() {
 
         List<FillUp> recordsList = new ArrayList<FillUp>();
 
@@ -175,6 +176,32 @@ public class TableControllerFillUp extends DbHandler{
         db.close();
 
         return deleteSuccessful;
+
+    }
+
+    public float returnMinID(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        float minID = 0;
+        Cursor cursor =  db.rawQuery("SELECT MIN(id) from fillups", null);
+        if(cursor.moveToFirst()){
+            minID = cursor.getFloat(0);
+        }
+        db.close();
+
+        return minID;
+
+    }
+
+    public float returnMaxID(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        float maxID = 0;
+        Cursor cursor =  db.rawQuery("SELECT max(id) from fillups", null);
+        if(cursor.moveToFirst()){
+            maxID = cursor.getFloat(0);
+        }
+        db.close();
+
+        return maxID;
 
     }
 }
