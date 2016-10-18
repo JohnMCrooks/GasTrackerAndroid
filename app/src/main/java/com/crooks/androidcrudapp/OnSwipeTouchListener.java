@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 
 /**
- * This code was found on StackOverflow and I really wanted to implement it in this learning project! ITS SO COOL!
- * http://stackoverflow.com/questions/937313/fling-gesture-detection-on-grid-layout?rq=1
+    This code was found on StackOverflow and I really wanted to implement it in this learning project! ITS SO COOL!
+    http://stackoverflow.com/questions/937313/fling-gesture-detection-on-grid-layout?rq=1
  */
 public class OnSwipeTouchListener implements OnTouchListener {
 

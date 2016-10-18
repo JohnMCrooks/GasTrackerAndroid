@@ -15,9 +15,6 @@ Redoing the Database/SQL to allow for further expansion on the overall idea.
 **Features to be added Eventually as I learn more about Android Development:**
 
 -Import/Export Data to Dropbox/Google Drive 
-
 -Mileage tracking and associated statistics 
-
 -More data Visualizations 
-
 -Gps Logging (Long-term goal, but hey, shoot for the stars right?)

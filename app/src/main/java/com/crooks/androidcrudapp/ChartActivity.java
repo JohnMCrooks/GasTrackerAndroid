@@ -32,15 +32,19 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void createTotalCostTable(){
+        //Custom color scheme for the charts
         int[] CROOKS_CUSTOM = {
                 Color.rgb(97, 181, 204), Color.rgb(80, 149, 168), Color.rgb(65, 124, 140),
-                Color.rgb(46, 90, 102), Color.rgb(35, 69, 79)
+                Color.rgb(46, 90, 102), Color.rgb(35, 69, 79), Color.rgb(46, 90, 102),
+                Color.rgb(65, 124, 140), Color.rgb(80, 149, 168)
         };
 
         BarChart chart = (BarChart) findViewById(R.id.chart);
 
-        //This swipe code was found on StackOverflow (more details in the OnSwipeTouchListener Class) and re-purposed
-        // for my particular use case. ITS SO COOL!
+        /*
+            This swipe code was found on StackOverflow (more details in the OnSwipeTouchListener Class) and re-purposed
+            for my particular use case. ITS SO COOL!
+         */
         chart.setOnTouchListener(new OnSwipeTouchListener(ChartActivity.this) {
             public void onSwipeTop() {
                 Toast.makeText(ChartActivity.this, "top", Toast.LENGTH_SHORT).show();
@@ -64,7 +68,9 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
         chart.setNoDataTextDescription("No data to analyze yet!");
         chart.setNoDataText("No data to analyze yet");
 
-        //Formatting the charts X and Y Axis
+        /*
+            Formatting the charts X and Y Axis
+        */
         XAxis xaxis = chart.getXAxis();
 
         xaxis.setAxisMinValue(new TableControllerFillUp(this).returnMinID() - 1);
@@ -74,13 +80,16 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
         YAxis yAxisLeft =  chart.getAxisLeft();
         yAxisLeft.setAxisMinValue(0);
-        yAxisLeft.setAxisMaxValue((float) (new TableControllerFillUp(this).returnMaxSingleCost() * 1.40));
+        yAxisLeft.setAxisMaxValue((float) (new TableControllerFillUp(this).returnMaxSingleCost() * 1.35));
 
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setDrawGridLines(false);
         yAxisRight.setDrawAxisLine(false);
         yAxisRight.setDrawLabels(false);
 
+        /*
+            Formatting data for chart usage
+        */
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         List<FillUp> fillUpList = new TableControllerFillUp(this).returnAllRecords();
@@ -92,7 +101,6 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
 
         BarDataSet dataset = new BarDataSet(entries, "Label");
         dataset.setColors(CROOKS_CUSTOM);
-
 
         BarData lineData = new BarData(dataset);
         lineData.setValueTextSize(12);

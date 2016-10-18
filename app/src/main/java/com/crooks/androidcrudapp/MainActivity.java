@@ -274,15 +274,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void updateStats(View v){
+        //grabbing data for display at bottom of screen
         Context context = v.getContext();
 
+        float sumTotal = new TableControllerFillUp(context).sumTotal();
+        float avgTotalCost = new TableControllerFillUp(context).averageTotalCost();
+        float avgCostPerGallon = new TableControllerFillUp(this).averageCostPerGallon();
+
         TextView textSumTotal = (TextView) findViewById(R.id.textSumTotal);
-        textSumTotal.setText("$" + new TableControllerFillUp(context).sumTotal());
+        textSumTotal.setText("$" + Math.round(sumTotal));
 
         TextView textAverageCost = (TextView) findViewById(R.id.textAverageCost);
-        textAverageCost.setText("$" + new TableControllerFillUp(context).averageTotalCost());
+        textAverageCost.setText("$" + Math.round(avgTotalCost));
 
         TextView textAvgCostPerGallon = (TextView) findViewById(R.id.costPerGallon);
-        textAvgCostPerGallon.setText("$" + new TableControllerFillUp(this).averageCostPerGallon());
+        textAvgCostPerGallon.setText("$" + Math.round(avgCostPerGallon));
     }
 }

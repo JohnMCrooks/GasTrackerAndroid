@@ -42,21 +42,22 @@
         android:id="@+id/textViewRecordCount"
         android:gravity="center"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/buttonAddFillUp"
         android:text="@string/_0_records_found"
-        android:padding="1dp" />
+        android:padding="1dp"
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:id="@+id/scrollViewRecords"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewRecordCount" >
+        android:layout_below="@+id/textViewRecordCount"
+        android:layout_above="@+id/linearLayout"
+        android:layout_height="360dp">
 
         <LinearLayout
             android:id="@+id/linearLayoutRecords"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="370dp"
             android:orientation="vertical" >
 
         </LinearLayout>
