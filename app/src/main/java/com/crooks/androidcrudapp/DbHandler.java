@@ -19,7 +19,8 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE fillups " + " (id INTEGER PRIMARY KEY AUTOINCREMENT, softID INT, date CHAR, costpergallon FLOAT, gallonspumped FLOAT, totalcost FLOAT) ";
+        String sql = "CREATE TABLE fillups " + " (id INTEGER PRIMARY KEY AUTOINCREMENT, softID INT, date CHAR, costpergallon FLOAT, gallonspumped FLOAT, totalcost FLOAT)";
+        // TODO: 10/17/16 - don't forget to finish adding the cars table (double check syntax) and changing the fillups table to remove any redundant entries
         String sql2 = "CREATE TABLE cars " + " (id INTEGER PRIMARY KEY AUTOINCREMENT, name CHAR)";
         db.execSQL(sql);
         db.execSQL(sql2);
@@ -28,6 +29,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // TODO: 10/17/16 - Update this appropriately after researching the proper syntax
         String sql = "DROP TABLE IF EXISTS fillups, cars";
         db.execSQL(sql);
 
