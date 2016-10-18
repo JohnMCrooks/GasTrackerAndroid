@@ -59,7 +59,7 @@ public class mpgChartActivity extends AppCompatActivity implements View.OnClickL
             }
             public void onSwipeLeft() {
                 Toast.makeText(mpgChartActivity.this, "left", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mpgChartActivity.this, ChartActivity.class);
+                Intent intent = new Intent(mpgChartActivity.this, MainActivity.class);
                 startActivity(intent);
 
             }
@@ -69,7 +69,8 @@ public class mpgChartActivity extends AppCompatActivity implements View.OnClickL
         });
 
         //Formatting the chart
-        chart.setDescription("Test Description, Please Ignore.");
+        chart.setDescription("Miles Per Gallon Through Time.");
+
         chart.setNoDataTextDescription("No data to analyze yet!");
         chart.setNoDataText("No data to analyze yet");
 
@@ -96,7 +97,10 @@ public class mpgChartActivity extends AppCompatActivity implements View.OnClickL
             Formatting data for chart usage
         */
 
+
         ArrayList<BarEntry> entries = new ArrayList<>();
+
+        //TODO Change this SQL call once the DB
         List<FillUp> fillUpList = new TableControllerFillUp(this).returnAllRecords();
 
         for(FillUp fill: fillUpList){

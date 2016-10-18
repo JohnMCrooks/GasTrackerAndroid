@@ -56,7 +56,8 @@ public class ChartActivity extends AppCompatActivity implements View.OnClickList
             }
             public void onSwipeLeft() {
                 Toast.makeText(ChartActivity.this, "left", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(ChartActivity.this, mpgChartActivity.class);
+                startActivity(intent);
             }
             public void onSwipeBottom() {
                 Toast.makeText(ChartActivity.this, "bottom", Toast.LENGTH_SHORT).show();

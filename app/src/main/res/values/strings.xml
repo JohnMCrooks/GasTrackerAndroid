@@ -10,4 +10,6 @@
     <string name="app_title">Gas Tracker</string>
     <string name="data_vis">Data Visualization</string>
     <string name="total_Cost_Title">Total Cost Over Time</string>
+    <string name="fuel_efficiency">Fuel Efficiency</string>
+    <string name="odometer">Odometer</string>
 </resources>

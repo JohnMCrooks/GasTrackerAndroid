@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             countRecords();
                             readRecords();
                         } else if (item ==1){
-                            boolean deleteSuccessful = new TableControllerFillUp(context).deleteSingle(Integer.parseInt(id));
+                            boolean deleteSuccessful = new TableControllerFillUp(context).deleteSingleRecord(Integer.parseInt(id));
 
                             if (deleteSuccessful){
                                 Toast.makeText(context, "Gas record was deleted.", Toast.LENGTH_SHORT).show();
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void editRecord(final int id, final Context context){
         final TableControllerFillUp tableControllerFillUp = new TableControllerFillUp(context);
-        final FillUp fillUp = tableControllerFillUp.readSingle(id);
+        final FillUp fillUp = tableControllerFillUp.returnSingleRecord(id);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View formElementsView = inflater.inflate(R.layout.gas_input_form, null, false);
@@ -221,10 +220,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         final EditText editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
         final EditText editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
+        final EditText editOdometer = (EditText) formElementsView.findViewById(R.id.editOdometer);
 
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
                 .setTitle("Add Fill Up")
+                .setCancelable(true)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -232,8 +233,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             double costPerGallon = Double.valueOf(editCostPerGallon.getText().toString());
                             double gallonsPumped = Double.valueOf(editGallonsPumped.getText().toString());
                             double totalCost = costPerGallon * gallonsPumped;
+                            int odometer = Integer.parseInt(editOdometer.getText().toString());
+                            int softID = new TableControllerFillUp(context).recordCount();
 
-                            FillUp newTank = new FillUp(date.toString(), costPerGallon,gallonsPumped,totalCost);
+                            FillUp newTank = new FillUp(softID, date.toString(), costPerGallon,gallonsPumped,totalCost, odometer, 0);
                             boolean createSuccessful = new TableControllerFillUp(context).createRecord(newTank);
 
                             if(createSuccessful){

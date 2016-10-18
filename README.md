@@ -4,8 +4,8 @@ Started as a tutorial on the basics of SQLite but has somehow blown past that an
 
 **Current Features:**
 1. Add a new Tank. 
-2. Cost over time chart.
-3. ???
+2. Cost Chart, Fuel Efficiency(WIP).
+3. 
 4. Profit.
 
 **Currently Working On**:

@@ -8,10 +8,15 @@ import java.util.Date;
 
 public class FillUp {
     int id;
+    int softId;
+    int newOdometer;
     String date;
     double costPerGallon;
     double gallonsPumped;
     double totalCost;
+    double milesPerGallon;
+
+
 
     public FillUp() {
     }
@@ -21,6 +26,17 @@ public class FillUp {
         this.costPerGallon = costPerGallon;
         this.gallonsPumped = gallonsPumped;
         this.totalCost = totalCost;
+    }
+
+    public FillUp( int softId, String date, double costPerGallon, double gallonsPumped, double totalCost, int newOdometer, double milesPerGallon) {
+        this.id = id;
+        this.softId = softId;
+        this.date = date;
+        this.costPerGallon = costPerGallon;
+        this.gallonsPumped = gallonsPumped;
+        this.totalCost = totalCost;
+        this.newOdometer = newOdometer;
+        this.milesPerGallon = milesPerGallon;
     }
 
     public String getDate() {
@@ -61,5 +77,29 @@ public class FillUp {
 
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public int getSoftId() {
+        return softId;
+    }
+
+    public void setSoftId(int softId) {
+        this.softId = softId;
+    }
+
+    public int getNewOdometer() {
+        return newOdometer;
+    }
+
+    public void setNewOdometer(int newOdometer) {
+        this.newOdometer = newOdometer;
+    }
+
+    public double getMilesPerGallon() {
+        return milesPerGallon;
+    }
+
+    public void setMilesPerGallon(double milesPerGallon) {
+        this.milesPerGallon = milesPerGallon;
     }
 }

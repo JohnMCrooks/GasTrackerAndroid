@@ -115,7 +115,7 @@ public class TableControllerFillUp extends DbHandler{
         return recordsList;
     }
 
-    public FillUp readSingle(int id){
+    public FillUp returnSingleRecord(int id){
         FillUp fillUp = null;
         String sql = "SELECT * FROM fillups WHERE id = " + id;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -155,7 +155,7 @@ public class TableControllerFillUp extends DbHandler{
         return updateSuccessful;
     }
 
-    public boolean deleteSingle(int id) {
+    public boolean deleteSingleRecord(int id) {
         boolean deleteSuccessful = false;
 
         SQLiteDatabase db = this.getWritableDatabase();
