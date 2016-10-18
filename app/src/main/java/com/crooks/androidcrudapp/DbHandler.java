@@ -19,7 +19,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE fillups " + " (id INTEGER PRIMARY KEY AUTOINCREMENT, date CHAR, costpergallon FLOAT, gallonspumped FLOAT, totalcost FLOAT) ";
+        String sql = "CREATE TABLE fillups " + " (id INTEGER PRIMARY KEY AUTOINCREMENT, softID INT, date CHAR, costpergallon FLOAT, gallonspumped FLOAT, totalcost FLOAT) ";
         db.execSQL(sql);
 
     }

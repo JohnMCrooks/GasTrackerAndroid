@@ -9,4 +9,5 @@
     <string name="charts">Charts</string>
     <string name="app_title">Gas Tracker</string>
     <string name="data_vis">Data Visualization</string>
+    <string name="total_Cost_Title">Total Cost Over Time</string>
 </resources>

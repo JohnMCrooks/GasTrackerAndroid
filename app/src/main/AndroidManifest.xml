@@ -17,7 +17,7 @@
         </activity>
 
         <activity android:name=".ChartActivity"
-                  android:label="@string/data_vis">
+                  android:label="@string/total_Cost_Title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

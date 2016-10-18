@@ -204,4 +204,17 @@ public class TableControllerFillUp extends DbHandler{
         return maxID;
 
     }
+
+    public float returnMaxSingleCost(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        float maxTotalCost = 0;
+        Cursor cursor =  db.rawQuery("SELECT max(totalcost) from fillups", null);
+        if(cursor.moveToFirst()){
+            maxTotalCost = cursor.getFloat(0);
+        }
+        db.close();
+
+        return maxTotalCost;
+
+    }
 }
