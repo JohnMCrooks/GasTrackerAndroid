@@ -28,8 +28,15 @@ public class FillUp {
         this.totalCost = totalCost;
     }
 
+    public FillUp(String date, double costPerGallon, double gallonsPumped, double totalCost, int newOdometer) {
+        this.date = date;
+        this.costPerGallon = costPerGallon;
+        this.gallonsPumped = gallonsPumped;
+        this.totalCost = totalCost;
+        this.newOdometer = newOdometer;
+    }
+
     public FillUp( int softId, String date, double costPerGallon, double gallonsPumped, double totalCost, int newOdometer, double milesPerGallon) {
-        this.id = id;
         this.softId = softId;
         this.date = date;
         this.costPerGallon = costPerGallon;
@@ -38,6 +45,7 @@ public class FillUp {
         this.newOdometer = newOdometer;
         this.milesPerGallon = milesPerGallon;
     }
+
 
     public String getDate() {
         return date;

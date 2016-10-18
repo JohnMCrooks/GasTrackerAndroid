@@ -100,7 +100,7 @@ public class mpgChartActivity extends AppCompatActivity implements View.OnClickL
 
         ArrayList<BarEntry> entries = new ArrayList<>();
 
-        //TODO Change this SQL call once the DB
+        //TODO Change this SQL call once the DB is redone and working properly
         List<FillUp> fillUpList = new TableControllerFillUp(this).returnAllRecords();
 
         for(FillUp fill: fillUpList){

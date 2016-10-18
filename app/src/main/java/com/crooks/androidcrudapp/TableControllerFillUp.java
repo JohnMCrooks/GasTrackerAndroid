@@ -24,6 +24,7 @@ public class TableControllerFillUp extends DbHandler{
         values.put("costpergallon", fillUp.costPerGallon);
         values.put("gallonspumped", fillUp.gallonsPumped);
         values.put("totalcost", fillUp.totalCost);
+        values.put("odometer", fillUp.newOdometer);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -96,13 +97,18 @@ public class TableControllerFillUp extends DbHandler{
                 double gallonsPumped = Double.parseDouble(cursor.getString(cursor.getColumnIndex("gallonspumped")));
                 double costPerGallon = Double.parseDouble(cursor.getString(cursor.getColumnIndex("costpergallon")));
                 double totalCost = Double.parseDouble(cursor.getString(cursor.getColumnIndex("totalcost")));
-
+                int odometer = Integer.parseInt(cursor.getString(cursor.getColumnIndex("odometer")));
+//                double mpg = Double.parseDouble(cursor.getString(cursor.getColumnIndex("mpg")));
+                // // TODO: 10/18/16 incorporate mpg properly so all of these methods can run smoothly!!
                 FillUp fillup = new FillUp();
                 fillup.id = id;
                 fillup.date = date;
                 fillup.gallonsPumped = gallonsPumped;
                 fillup.costPerGallon = costPerGallon;
                 fillup.totalCost = totalCost;
+                fillup.setNewOdometer(odometer);
+                //fillup.setMilesPerGallon(mpg);
+
 
                 recordsList.add(fillup);
 
@@ -128,8 +134,9 @@ public class TableControllerFillUp extends DbHandler{
             double costPerGallon = Double.parseDouble(cursor.getString(cursor.getColumnIndex("costpergallon")));
             double gallonsPumped = Double.parseDouble(cursor.getString(cursor.getColumnIndex("gallonspumped")));
             double totalCost = Double.parseDouble(cursor.getString(cursor.getColumnIndex("totalcost")));
+            int odometer = Integer.parseInt(cursor.getString(cursor.getColumnIndex("odometer")));
 
-            fillUp = new FillUp(oldDate,costPerGallon,gallonsPumped,totalCost);
+            fillUp = new FillUp(oldDate,costPerGallon,gallonsPumped,totalCost,odometer);
             fillUp.id = oldId;
         }
 
@@ -144,6 +151,7 @@ public class TableControllerFillUp extends DbHandler{
         values.put("gallonspumped", updatedFill.gallonsPumped);
         values.put("costpergallon", updatedFill.costPerGallon);
         values.put("totalcost", updatedFill.totalCost);
+        values.put("odometer", updatedFill.newOdometer);
 
         String where = "id = ?";
         String[] whereArgs = {Integer.toString(updatedFill.getId())};

@@ -167,10 +167,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final EditText editCostPerGallon = (EditText) formElementsView.findViewById(R.id.editCostPerGallon);
         final EditText editGallonsPumped = (EditText) formElementsView.findViewById(R.id.editGallonsPumped);
         final EditText editDate = (EditText) formElementsView.findViewById(R.id.editDate);
+        final EditText editOdometer = (EditText) formElementsView.findViewById(R.id.editOdometer);
 
-        editDate.setText(String.valueOf(fillUp.date));
-        editCostPerGallon.setText(String.valueOf(fillUp.costPerGallon));
-        editGallonsPumped.setText(String.valueOf(fillUp.gallonsPumped));
+        editDate.setText(String.valueOf(fillUp.getDate()));
+        editCostPerGallon.setText(String.valueOf(fillUp.getCostPerGallon()));
+        editGallonsPumped.setText(String.valueOf(fillUp.getGallonsPumped()));
+        editOdometer.setText(String.valueOf(fillUp.getNewOdometer()));
 
         new AlertDialog.Builder(context)
                 .setView(formElementsView)
@@ -182,8 +184,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 double costPerGallon = Double.valueOf(editCostPerGallon.getText().toString());
                                 double gallonsPumped = Double.valueOf(editGallonsPumped.getText().toString());
                                 double totalCost = costPerGallon * gallonsPumped;
+                                int odometer = Integer.parseInt(editOdometer.getText().toString());
 
-                                FillUp fillUp1 = new FillUp(date, costPerGallon,gallonsPumped,totalCost);
+
+                                FillUp fillUp1 = new FillUp(date, costPerGallon,gallonsPumped,totalCost, odometer);
                                 fillUp1.setId(fillUp.getId());
 
                                 boolean updateSuccessful = tableControllerFillUp.updateRecord(fillUp1);
@@ -197,7 +201,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 countRecords();
                                 readRecords();
-
 
                                 dialog.cancel();
                             }
@@ -236,9 +239,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             int odometer = Integer.parseInt(editOdometer.getText().toString());
                             int softID = new TableControllerFillUp(context).recordCount();
 
+                            //TODO add calculation for MPG, get some sleep.
                             FillUp newTank = new FillUp(softID, date.toString(), costPerGallon,gallonsPumped,totalCost, odometer, 0);
                             boolean createSuccessful = new TableControllerFillUp(context).createRecord(newTank);
-
+                            System.out.println(newTank.getNewOdometer());
                             if(createSuccessful){
                                 Toast.makeText(context, "New data was saved.", Toast.LENGTH_SHORT).show();
                                 countRecords();
