@@ -1,6 +1,7 @@
 package com.crooks.androidcrudapp;
 
 import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.*;
 
@@ -14,4 +15,11 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void somethingPleaseWork(){
+        assertTrue(false);
+    }
+
+
 }
