@@ -110,4 +110,8 @@ public class FillUp {
     public void setMilesPerGallon(double milesPerGallon) {
         this.milesPerGallon = milesPerGallon;
     }
+    public void setMilesPerGallon(int newOdometer){
+
+    }
+
 }

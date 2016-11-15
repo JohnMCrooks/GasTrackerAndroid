@@ -25,6 +25,7 @@ public class TableControllerFillUp extends DbHandler{
         values.put("gallonspumped", fillUp.gallonsPumped);
         values.put("totalcost", fillUp.totalCost);
         values.put("odometer", fillUp.newOdometer);
+        values.put("mpg", fillUp.milesPerGallon);
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -91,15 +92,20 @@ public class TableControllerFillUp extends DbHandler{
 
         if (cursor.moveToFirst()) {
             do {
-
+                double mpg;
                 int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("id")));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
                 double gallonsPumped = Double.parseDouble(cursor.getString(cursor.getColumnIndex("gallonspumped")));
                 double costPerGallon = Double.parseDouble(cursor.getString(cursor.getColumnIndex("costpergallon")));
                 double totalCost = Double.parseDouble(cursor.getString(cursor.getColumnIndex("totalcost")));
                 int odometer = Integer.parseInt(cursor.getString(cursor.getColumnIndex("odometer")));
-//                double mpg = Double.parseDouble(cursor.getString(cursor.getColumnIndex("mpg")));
-                // // TODO: 10/18/16 incorporate mpg properly so all of these methods can run smoothly!!
+
+                if (cursor.getString(cursor.getColumnIndex("mpg")) == null){
+                     mpg = 0;
+                } else {
+                     mpg = Double.parseDouble(cursor.getString(cursor.getColumnIndex("mpg")));
+                }
+
                 FillUp fillup = new FillUp();
                 fillup.id = id;
                 fillup.date = date;
@@ -107,7 +113,8 @@ public class TableControllerFillUp extends DbHandler{
                 fillup.costPerGallon = costPerGallon;
                 fillup.totalCost = totalCost;
                 fillup.setNewOdometer(odometer);
-                //fillup.setMilesPerGallon(mpg);
+
+                fillup.setMilesPerGallon(odometer);
 
 
                 recordsList.add(fillup);
